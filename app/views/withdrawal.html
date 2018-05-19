@@ -1,27 +1,28 @@
 <div ng-controller="WithdrawalController as withdrawal">
-  <h1>Withdrawl</h1>
+  <h2>Request Withdrawl</h2>
   <hr />
   <ul class="list-unstyled">
     <li ng-repeat="account in withdrawal.accounts">
-      {{account}}
+      {{account}} (Is this your wallet controller address?)
     </li>
+    <li style="color:orange">** The request will be directly approved if the wallet's spent is within the day limit.</li>
   </ul>
   <div ng-hide="withdrawal.transfer_success">
     <form ng-submit="withdrawal.withdrawlFunds(address,amount)">
       <div class="form-group">
         <label for="addressTo">Address to</label>
-        <input id="addressTo" ng-model="address" class="form-control" placeholder="0x3e61..." />
+        <input id="addressTo" ng-model="address" class="form-control" placeholder="0x45..." />
       </div>
       <div class="form-group">
         <label for="amountInEther">Amount in ether:</label>
-        <input id="amountInEther" ng-model="amount" class="form-control" placeholder="1" />
+        <input id="amountInEther" ng-model="amount" class="form-control" placeholder="1" step="0.0001" />
       </div>
-      <button type="submit" class="button button-default">Submit</button>
+      <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </div>
   <div ng-show="withdrawal.transfer_success">
     <div class="alert alert-success">
-      Transfer successful
+      Request sent successful
     </div>
   </div>
   <div ng-show="withdrawal.has_errors">
@@ -31,7 +32,61 @@
   </div>
   <div ng-show="!withdrawal.isAllowedToWithdrawFunds">
     <div class="alert alert-error">
-      The address {{withdrawal.selectedAccount}} does not have permission to withdraw funds.
+      The address {{withdrawal.selectedAccount}} does not have permission to withdraw ethers.
     </div>
   </div>
+</div>
+<hr />
+
+<div ng-controller="ApprovalController as approval">
+  <h2>Approve Withdrawl</h2>
+  <hr />
+  <ul class="list-unstyled">
+    <li style="color:orange">** Any abnormal display can be solved by refreshing the page.</li>
+    <li>You are {{approval.selectedAccount}}</li>
+    <li> <span style="color:orange;font-weight: bold;">{{approval.txPendingNum}}</span> transaction(s) is(are) waiting to be approved. </li>
+    <li>You need to approve <span ng-repeat="id in approval.pendingTxId">transaction ID <span style="color:blue;font-weight: bold;">{{id}}</span>,</span> thanks!</li>
+
+  </ul>
+  <div>
+    <table class="table table-bordered table-condensed">
+    <thead>
+          <tr>
+            <th>Tx ID</th>
+            <th>Receiver Address</th>
+            <th>Amount in Ether</th>
+            <th>Executed</th>
+          </tr>
+        </thead>
+      <tr ng-repeat="tnx in approval.pendingTransactions">
+        <td ng-repeat="x in tnx track by $index">{{x}}</td>
+      </tr>
+    </table>
+  </div>
+  <div ng-hide="approval.transfer_success">
+    <form ng-submit="approval.confirm(amount)">
+      <div class="form-group">
+        <label for="amount">Transaction ID</label>
+        <input id="amount" ng-model="amount" class="form-control" placeholder="0" />
+      </div>
+      
+      <button type="submit" class="btn btn-default">Confirm</button>
+    </form>
+  </div>
+  <div ng-show="approval.transfer_success">
+    <div class="alert alert-success">
+      Confirmation sent successful
+    </div>
+  </div>
+  <div ng-show="approval.has_errors">
+    <div class="alert alert-error">
+      {{approval.has_errors}}
+    </div>
+  </div>
+  <div ng-show="!approval.isAllowedToConfirmTx">
+    <div class="alert alert-error" style="color:red">
+      The address {{approval.selectedAccount}} does not have permission to confirm transactions.
+    </div>
+  </div>
+</div>
 </div>

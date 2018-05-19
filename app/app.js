@@ -4,6 +4,7 @@ app.controller("SendFundsController", SendFundsController);
 app.controller("EventsController", EventsController);
 app.controller("MainController", MainController);
 app.controller("WithdrawalController", WithdrawalController);
+app.controller("ApprovalController", ApprovalController);
 app.config(function($routeProvider) {
   $routeProvider
     .when('/', {
@@ -12,7 +13,7 @@ app.config(function($routeProvider) {
     })
     .when('/deposit',{
       templateUrl: 'views/deposit.html',
-      controller: 'SendFundsController'
+      controller: 'SendFundsController',
     })
     .when('/events',{
       templateUrl: 'views/events.html',
@@ -20,7 +21,8 @@ app.config(function($routeProvider) {
     })
     .when('/withdrawl',{
       templateUrl: 'views/withdrawal.html',
-      controller: 'WithdrawalController'
+      controller: 'WithdrawalController',
+      controller: 'ApprovalController'
     })
     .otherwise({
       templateUrl: 'views/four-oh-four.html'

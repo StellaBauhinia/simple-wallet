@@ -1,10 +1,34 @@
 <div ng-controller="EventsController as events">
-  <h1>Events</h1>
+  <h2>Outgoing Ether Events</h2>
   <hr />
-  <div ng-repeat='event in events.events'>
-    Type: {{event.event}} <br  />
-    Amount: {{event.args.amount}} <br / />
-    Transaction Hash: {{event.transactionHash}}
+  <div ng-repeat='event in events.etherEvents'>
+    Transaction ID: {{event.args.transactionId}} <br / />
+    Receiver: {{event.args.toAddress}} <br  />
+    Transferred Amount: {{event.args.value}} ETH<br  />
+    Mined in Ethereum Block: {{event.blockNumber}} <br  />
+    Transaction Hash: <a href={{event.url}} onclick="window.open(this.href);return false;">{{event.transactionHash}}</a>
+    <hr  />
+  </div>
+  <h2>Transactions Confirmation Events</h2>
+  <hr />
+  <div ng-repeat='event in events.pendingEvents'>
+    Transaction ID: {{event.args.transactionId}} <br / />
+    Sender: {{event.args.sender}} <br  />
+    Transaction Hash: <a href={{event.url}} onclick="window.open(this.href);return false;">{{event.transactionHash}}</a>
+    <hr  />
+  </div>
+  <h2>Wallet Management Events</h2>
+  <hr />
+  <div ng-repeat='event in events.ownerEvents'>
+    Type: {{event.event}} <br / />
+    Address: {{event.args.owner}} <br  />
+    Transaction Hash: <a href={{event.url}} onclick="window.open(this.href);return false;">{{event.transactionHash}}</a>
+    <hr  />
+  </div>
+  <div ng-repeat='event in events.requireEvents'>
+    Type: {{event.event}} <br / />
+    Changed approval number to: {{event.args.required}} <br  />
+    Transaction Hash: <a href={{event.url}} onclick="window.open(this.href);return false;">{{event.transactionHash}}</a>
     <hr  />
   </div>
 </div>

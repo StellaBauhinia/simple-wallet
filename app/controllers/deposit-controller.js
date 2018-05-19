@@ -3,13 +3,14 @@ function SendFundsController($scope) {
   vm.accounts = web3.eth.accounts;
   vm.isAllowedToSendFunds = true;
   vm.selectedAccount = web3.eth.accounts[0];
+  vm.events = [];
 
   vm.depositFunds = function(address_from, amount) {
     var contract;
     SimpleWallet.deployed().then(function(instance) {
       contract = instance;
       vm.selectedAccount = address_from;
-      return instance.isAllowedToSend(address_from);
+      return instance.isOwner(address_from);
     }).then(function(result) {
       vm.isAllowedToSendFunds = result;
 
@@ -29,10 +30,11 @@ function SendFundsController($scope) {
           }
         });
       }else{
-        console.log("is address allowed to send funds: "+vm.isAllowedToSendFunds);
+        console.log("is address allowed to send ethers: "+vm.isAllowedToSendFunds);
       }
 
       $scope.$apply();
     });
   };
 }
+
