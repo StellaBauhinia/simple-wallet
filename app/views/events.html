@@ -19,7 +19,7 @@
   </div>
   <h2>Wallet Management Events</h2>
   <hr />
-  <div ng-repeat='event in events.ownerEvents'>
+  <div ng-repeat='event in events.adminEvents'>
     Type: {{event.event}} <br / />
     Address: {{event.args.owner}} <br  />
     Transaction Hash: <a href={{event.url}} onclick="window.open(this.href);return false;">{{event.transactionHash}}</a>
