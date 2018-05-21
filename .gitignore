@@ -2,3 +2,5 @@ build
 node_modules
 yarn-error.log
 bower_components
+SimpleWallet.sol
+contracts-setup.js
