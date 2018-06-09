@@ -19,7 +19,7 @@ function EventsController($scope) {
       eventsToWatch.watch(function(error, result) {
         if (!error) {
           var eventType=result.event;
-          result.url="https://rinkeby.etherscan.io/tx/"+result.transactionHash;
+          result.url="https://etherscan.io/tx/"+result.transactionHash;
           switch(eventType){
             case "Deposit":
               result.args.value=web3.fromWei(result.args.value.toNumber(), "ether");
