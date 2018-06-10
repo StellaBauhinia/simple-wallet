@@ -12,7 +12,7 @@ function EventsController($scope) {
       //console.log("contract instance aquired...");
       //console.log("requesting transactions, please wait.");
       var eventsToWatch = instance.allEvents({
-        fromBlock: 2298742,
+        fromBlock: 2438742,
         toBlock: 'latest'
       });
 
@@ -57,7 +57,7 @@ function EventsController($scope) {
             //console.log(vm.events);
             $scope.$apply();
           });
-          
+
         }else{
           console.log(error);
         }
