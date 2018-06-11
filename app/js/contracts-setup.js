@@ -615,7 +615,7 @@ var SimpleWallet = TruffleContract({
   "networks": {
     "4": {
       "links": {},
-      "address": "0x0"
+      "address": "0xadb23ff307c7b264f92710946e0a1f4b51ff603c"
     },
     "1": {
       "links": {},

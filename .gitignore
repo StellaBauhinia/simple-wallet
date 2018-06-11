@@ -5,3 +5,4 @@ bower_components
 SimpleWallet.sol
 contracts-setup.js
 .DS_Store
+app/js/contracts-setup.js
